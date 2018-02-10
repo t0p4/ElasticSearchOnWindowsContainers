@@ -1,3 +1,9 @@
-.\OpenJDK-powershell\nanoserver-1709\build.cmd
-.\ElasticSearch\nanoserver-1709\build.cmd
-.\Kibana\windowsservercore-1709\build.cmd
+cd .\OpenJDK-powershell\nanoserver-1709
+start build.cmd
+cd ..\..\
+cd .\ElasticSearch\nanoserver-1709
+start build.cmd
+cd ..\..\
+cd .\Kibana\windowsservercore-1709
+start build.cmd
+cd ..\..\
