@@ -13,7 +13,7 @@ RUN Invoke-WebRequest "https://artifacts.elastic.co/downloads/elasticsearch/elas
     Move-Item c:/elasticsearch-$($env:ES_VERSION) $env:ES_HOME;
 
 # Elasticsearch
-FROM tonyhernandezatms/openjdk-powershell
+FROM tonyhernandezatms/openjdk-powershell:8-jdk-nanoserver-1709
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
 ENV ES_VERSION="5.5.3" `
