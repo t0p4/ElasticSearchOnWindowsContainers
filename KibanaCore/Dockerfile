@@ -2,7 +2,7 @@
 FROM microsoft/windowsservercore:ltsc2016 AS downloader
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-ENV KIBANA_VERSION="5.5.0" `
+ENV KIBANA_VERSION="5.5.3" `
     KIBANA_HOME="C:\kibana"
 
 RUN Invoke-WebRequest "https://artifacts.elastic.co/downloads/kibana/kibana-$($env:KIBANA_VERSION)-windows-x86.zip.sha1" -OutFile 'kibana.zip.sha1' -UseBasicParsing; `
@@ -16,7 +16,7 @@ RUN Invoke-WebRequest "https://artifacts.elastic.co/downloads/kibana/kibana-$($e
 FROM microsoft/windowsservercore:ltsc2016
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
-ENV KIBANA_VERSION="5.5.0" `
+ENV KIBANA_VERSION="5.5.3" `
     KIBANA_HOME="C:\kibana"
 
 EXPOSE 5601
