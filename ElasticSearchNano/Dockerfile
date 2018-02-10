@@ -1,5 +1,5 @@
 # escape=`
-FROM microsoft/windowsservercore AS downloader
+FROM microsoft/windowsservercore:1709 AS downloader
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 ENV ES_VERSION="5.5.3" `
