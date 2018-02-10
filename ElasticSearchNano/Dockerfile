@@ -14,7 +14,7 @@ RUN Invoke-WebRequest "https://artifacts.elastic.co/downloads/elasticsearch/elas
 
 # Elasticsearch
 FROM tonyhernandezatms/openjdk-powershell:8-jdk-nanoserver-1709
-SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
+# SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
 ENV ES_VERSION="5.5.3" `
     ES_HOME="C:\elasticsearch"
