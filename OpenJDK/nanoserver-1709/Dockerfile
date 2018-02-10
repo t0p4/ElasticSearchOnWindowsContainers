@@ -43,7 +43,7 @@ RUN $url = ('https://github.com/ojdkbuild/ojdkbuild/releases/download/{0}/{1}' -
 	\
 	Write-Host 'Complete.';
 
-FROM microsoft/powershell:6.0.1-nanoserver-1709
+FROM microsoft/microsoft/nanoserver:1709
 ENV JAVA_HOME C:\\ojdkbuild
 ENV JAVA_VERSION 8u161
 ENV JAVA_OJDKBUILD_VERSION 1.8.0.161-1
