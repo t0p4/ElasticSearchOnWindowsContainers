@@ -49,4 +49,7 @@ ENV JAVA_VERSION 8u161
 ENV JAVA_OJDKBUILD_VERSION 1.8.0.161-1
 
 COPY --from=downloader C:\\ojdkbuild\\ ${JAVA_HOME}
-RUN setx.exe PATH %JAVA_HOME%;%PATH%
+#RUN setx.exe PATH %JAVA_HOME%;%PATH%
+RUN $oldPath=(Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINESystemCurrentControlSetControlSession ManagerEnvironment' -Name PATH).Path \
+	$newPath=$oldPath+’;${JAVA_HOME}’ \
+	Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINESystemCurrentControlSetControlSession ManagerEnvironment' -Name PATH –Value $newPath
