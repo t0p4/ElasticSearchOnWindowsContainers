@@ -1,0 +1,36 @@
+version: '2.1'
+services:
+
+  elasticsearch:
+    build: ./ElasticSearchNano
+    hostname: elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - '.\\ElasticSearchNano\\data:C:\\data'
+      - '.\\ElasticSearchNano\\config\\elasticsearch.yml:C:\\elasticsearch\\config\\elasticsearch.yml'
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    stdin_open: true
+    tty: true
+
+  kibana:
+    build: ./KibanaCore
+    hostname: kibana
+    links:
+      - elasticsearch
+    ports:
+      - "5601:5601"
+    volumes:
+      - ".\\KibanaCore\\config\\kibana.yml:C:\\kibana\\config\\kibana.yml"
+
+networks:
+  default:
+    external:
+      name: nat
