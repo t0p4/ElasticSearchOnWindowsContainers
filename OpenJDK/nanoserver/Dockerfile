@@ -1,4 +1,4 @@
-FROM microsoft/windowsservercore:ltsc AS downloader
+FROM microsoft/windowsservercore:ltsc2016 AS downloader
 
 # $ProgressPreference: https://github.com/PowerShell/PowerShell/issues/2138#issuecomment-251261324
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
@@ -43,7 +43,7 @@ RUN $url = ('https://github.com/ojdkbuild/ojdkbuild/releases/download/{0}/{1}' -
 	\
 	Write-Host 'Complete.';
 
-FROM microsoft/microsoft/nanoserver:sac2016
+FROM microsoft/nanoserver:sac2016
 ENV JAVA_HOME C:\\ojdkbuild
 ENV JAVA_VERSION 8u161
 ENV JAVA_OJDKBUILD_VERSION 1.8.0.161-1
