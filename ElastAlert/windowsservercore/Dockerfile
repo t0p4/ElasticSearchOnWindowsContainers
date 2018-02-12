@@ -1,27 +1,22 @@
 # Must use Python 2 for ElastAlert: https://github.com/Yelp/elastalert/issues/1425
 FROM python:2.7.14-windowsservercore-ltsc2016
 
-# Download useful tools to C:\Bin.
-ADD https://dist.nuget.org/win-x86-commandline/v4.1.0/nuget.exe C:\\Bin\\nuget.exe
-
-# Download the Build Tools bootstrapper outside of the PATH.
-ADD https://aka.ms/vs/15/release/vs_buildtools.exe C:\\TEMP\\vs_buildtools.exe
-
 # Flip back to cmd from powershell
 SHELL ["cmd", "/S", "/C"]
 
-# Add C:\Bin to PATH and install Build Tools excluding workloads and components with known issues.
-RUN setx /m PATH "%PATH%;C:\Bin" \
- && C:\TEMP\vs_buildtools.exe --quiet --wait --norestart --nocache --installPath C:\BuildTools --all \
-    --remove Microsoft.VisualStudio.Component.Windows10SDK.10240 \
-    --remove Microsoft.VisualStudio.Component.Windows10SDK.10586 \
-    --remove Microsoft.VisualStudio.Component.Windows10SDK.14393 \
-    --remove Microsoft.VisualStudio.Component.Windows81SDK \
- || IF "%ERRORLEVEL%"=="3010" EXIT 0
+# Copy dependency. Need to find URL for this.
+COPY VCForPython27.msi C:\\TEMP\\VSForPython27.msi
 
-RUN pip install "elastalert==0.1.28"
+# Install dependency.
+RUN C:\\TEMP\\VSForPython27.msi
+
+# Install ElastAlert
+RUN pip install elastalert
+
 # Volume and drive mount
 VOLUME C:\\ElastAlert\\config C:\\ElastAlert\\rules
+
+# Workaround needed: https://blog.sixeyed.com/docker-volumes-on-windows-the-case-of-the-g-drive/
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 RUN Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'G:' -Value '\??\C:\ElastAlert\config' -Type String; \
     Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'L:' -Value '\??\C:\ElastAlert\rules' -Type String
@@ -32,5 +27,7 @@ RUN Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manag
 COPY config-example c:\\ElastAlert\\config-example
 COPY rules-example c:\\ElastAlert\\rules-example
 
-# Default to PowerShell if no other command specified.
-CMD ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]
+# Flip back to cmd from powershell
+SHELL ["cmd", "/S", "/C"]
+
+CMD ["C:\Python\Scripts\elastalert.exe","--verbose","--config","C:\ElastAlert\config-example\config.yaml"]
