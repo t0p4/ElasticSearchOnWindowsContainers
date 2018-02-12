@@ -56,6 +56,10 @@
 # ensure UTF-8 encoding by default (e.g. filenames)
 -Dfile.encoding=UTF-8
 
+# solving log4j CharSetException: https://github.com/sixeyed/dockerfiles-windows/issues/5
+-Dsun.stdout.encoding=UTF-8
+-Dsun.err.encoding=UTF-8
+
 # use our provided JNA always versus the system one
 -Djna.nosys=true
 
