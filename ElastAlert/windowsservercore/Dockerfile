@@ -1,4 +1,5 @@
-FROM python:3.6.4-windowsservercore-ltsc2016
+# Must use Python 2 for ElastAlert: https://github.com/Yelp/elastalert/issues/1425
+FROM python:2.7.14-windowsservercore-ltsc2016
 
 # Download useful tools to C:\Bin.
 ADD https://dist.nuget.org/win-x86-commandline/v4.1.0/nuget.exe C:\\Bin\\nuget.exe
@@ -20,11 +21,16 @@ RUN setx /m PATH "%PATH%;C:\Bin" \
 
 RUN pip install "elastalert==0.1.28"
 # Volume and drive mount
-VOLUME C:\elastalert\config C:\elastalert\rules
-RUN Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'G:' -Value '\??\C:\elastalert\config' -Type String; \
-    Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'L:' -Value '\??\C:\elastalert\rules' -Type String
+VOLUME C:\\ElastAlert\\config C:\\ElastAlert\\rules
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+RUN Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'G:' -Value '\??\C:\ElastAlert\config' -Type String; \
+    Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'L:' -Value '\??\C:\ElastAlert\rules' -Type String
 
-COPY config c:\elastalert\config
-COPY rules c:\elastalert\rules
+# Volumes on Windows-based containers: When using Windows-based containers, the destination of a volume inside the container must be one of:
+#	- a non-existing or empty directory
+#	- a drive other than C:
+COPY config-example c:\\ElastAlert\\config-example
+COPY rules-example c:\\ElastAlert\\rules-example
+
 # Default to PowerShell if no other command specified.
 CMD ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]
