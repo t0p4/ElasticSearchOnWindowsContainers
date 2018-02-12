@@ -18,10 +18,13 @@ RUN setx /m PATH "%PATH%;C:\Bin" \
     --remove Microsoft.VisualStudio.Component.Windows81SDK \
  || IF "%ERRORLEVEL%"=="3010" EXIT 0
 
+RUN pip install "elastalert==0.1.28"
+# Volume and drive mount
+VOLUME C:\elastalert\config C:\elastalert\rules
+RUN Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'G:' -Value '\??\C:\elastalert\config' -Type String; \
+    Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'L:' -Value '\??\C:\elastalert\rules' -Type String
 
-#RUN pip install "setuptools>=11.3"
-#RUN pip install "elasticsearch>=5.0.0"
-#RUN pip install "elastalert"
-
+COPY config c:\elastalert\config
+COPY rules c:\elastalert\rules
 # Default to PowerShell if no other command specified.
-#CMD ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]
+CMD ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]
