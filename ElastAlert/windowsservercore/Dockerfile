@@ -28,6 +28,6 @@ COPY config-example c:\\ElastAlert\\config-example
 COPY rules-example c:\\ElastAlert\\rules-example
 
 # Flip back to cmd from powershell
-SHELL ["cmd", "/S", "/C"]
+# SHELL ["cmd", "/S", "/C"]
 
-CMD ["C:\Python\Scripts\elastalert.exe","--verbose","--config","C:\ElastAlert\config-example\config.yaml"]
+# CMD ["C:\Python\Scripts\elastalert.exe","--verbose","--config","C:\ElastAlert\config-example\config.yaml"]
