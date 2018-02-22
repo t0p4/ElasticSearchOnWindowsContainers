@@ -29,4 +29,4 @@ COPY config-example c:\\ElastAlert\\config-example
 COPY rules-example c:\\ElastAlert\\rules-example
 COPY init.ps1 C:\\ElastAlert\\init.ps1
 
-CMD ["C:\ElastAlert\\init.ps1"]
+CMD C:\\ElastAlert\\init.ps1
