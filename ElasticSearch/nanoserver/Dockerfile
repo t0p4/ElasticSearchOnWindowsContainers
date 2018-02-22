@@ -31,7 +31,7 @@ CMD ".\bin\elasticsearch.bat"
 
 WORKDIR $ES_HOME
 COPY --from=downloader C:\elasticsearch\ .
-COPY config ./config-example
+COPY config ./config
 COPY init.ps1 C:\\elasticsearch\\init.ps1
 
 CMD C:\\elasticsearch\\init.ps1
