@@ -20,10 +20,10 @@ ENV ES_VERSION="5.5.3" `
     ES_HOME="C:\elasticsearch"
 
 # Volume and drive mount
-VOLUME C:\data C:\logs C:\elasticsearch\config
+VOLUME C:\data C:\logs C:\config
 RUN Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'G:' -Value '\??\C:\data' -Type String; `
     Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'L:' -Value '\??\C:\logs' -Type String; `
-    Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'M:' -Value '\??\C:\elasticsearch\config' -Type String;
+    Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'M:' -Value '\??\C:\config' -Type String;
 
 EXPOSE 9200 9300
 SHELL ["cmd", "/S", "/C"]
