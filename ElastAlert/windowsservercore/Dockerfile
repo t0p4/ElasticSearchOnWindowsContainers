@@ -14,6 +14,7 @@ RUN C:\\TEMP\\VSForPython27.msi
 RUN pip install elastalert
 
 # Volume and drive mount
+# Mount your custom config and rules to these mount points
 VOLUME C:\\ElastAlert\\config C:\\ElastAlert\\rules
 
 # Workaround needed: https://blog.sixeyed.com/docker-volumes-on-windows-the-case-of-the-g-drive/
@@ -26,8 +27,6 @@ RUN Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manag
 #	- a drive other than C:
 COPY config-example c:\\ElastAlert\\config-example
 COPY rules-example c:\\ElastAlert\\rules-example
+COPY init.ps1 C:\\ElastAlert\\init.ps1
 
-# Flip back to cmd from powershell
-# SHELL ["cmd", "/S", "/C"]
-
-# CMD ["C:\Python\Scripts\elastalert.exe","--verbose","--config","C:\ElastAlert\config-example\config.yaml"]
+CMD ["C:\ElastAlert\\init.ps1"]
