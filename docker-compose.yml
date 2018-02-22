@@ -11,7 +11,7 @@ services:
       - "9300:9300"
     volumes:
       - '.\ElasticSearch\nanoserver\data:C:\data'
-      - '.\ElasticSearch\nanoserver\config:C:\elasticsearch\config'
+      - '.\ElasticSearch\nanoserver\config:C:\config'
       - '.\ElasticSearch\nanoserver\logs:C:\logs'
     stdin_open: true
     tty: true
