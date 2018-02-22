@@ -20,10 +20,9 @@ ENV ES_VERSION="5.5.3" `
     ES_HOME="C:\elasticsearch"
 
 # Volume and drive mount
-VOLUME C:\data C:\logs C:\config
+VOLUME C:\data C:\logs
 RUN Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'G:' -Value '\??\C:\data' -Type String; `
-    Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'L:' -Value '\??\C:\logs' -Type String; `
-    Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'M:' -Value '\??\C:\config' -Type String;
+    Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'L:' -Value '\??\C:\logs' -Type String;
 
 EXPOSE 9200 9300
 SHELL ["cmd", "/S", "/C"]
@@ -33,8 +32,6 @@ WORKDIR $ES_HOME
 COPY --from=downloader C:\elasticsearch\ .
 COPY config ./config
 COPY init.ps1 C:\\elasticsearch\\init.ps1
-
-CMD C:\\elasticsearch\\init.ps1
 
 HEALTHCHECK --interval=5s `
  CMD powershell -command `

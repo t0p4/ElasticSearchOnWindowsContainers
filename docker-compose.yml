@@ -15,6 +15,8 @@ services:
       - '.\ElasticSearch\nanoserver\logs:C:\logs'
     stdin_open: true
     tty: true
+    environment:
+
 
   kibana:
     image: tonyhernandezatms/kibana:windowsservercore-ltsc2016-ES_5.5.3
@@ -24,7 +26,10 @@ services:
       - elasticsearch
     ports:
       - "5601:5601"
-
+    environment:
+      SERVER_NAME: localkibana
+      ELASTICSEARCH_URL: http://localES
+      
 networks:
   default:
     external:
