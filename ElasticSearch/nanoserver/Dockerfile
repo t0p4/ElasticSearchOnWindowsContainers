@@ -30,7 +30,10 @@ CMD ".\bin\elasticsearch.bat"
 
 WORKDIR $ES_HOME
 COPY --from=downloader C:\elasticsearch\ .
-COPY config ./config
+COPY config ./config-example
+COPY init.ps1 C:\\elasticsearch\\init.ps1
+
+CMD C:\\elasticsearch\\init.ps1
 
 HEALTHCHECK --interval=5s `
  CMD powershell -command `
