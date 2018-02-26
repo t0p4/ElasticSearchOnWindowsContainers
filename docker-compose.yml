@@ -5,18 +5,14 @@ services:
   elasticsearch:
     image: tonyhernandezatms/elasticsearch:openjdk8-nanoserver-sac2016-ES_5.5.3
     build: ./ElasticSearch/nanoserver
-    hostname: elasticsearch
+    hostname: es-dev
     ports:
       - "9200:9200"
       - "9300:9300"
     volumes:
       - '.\ElasticSearch\nanoserver\data:C:\data'
-      - '.\ElasticSearch\nanoserver\config:C:\config'
-      - '.\ElasticSearch\nanoserver\logs:C:\logs'
     stdin_open: true
     tty: true
-    environment:
-
 
   kibana:
     image: tonyhernandezatms/kibana:windowsservercore-ltsc2016-ES_5.5.3
@@ -27,9 +23,9 @@ services:
     ports:
       - "5601:5601"
     environment:
-      SERVER_NAME: localkibana
-      ELASTICSEARCH_URL: http://localES
-      
+      SERVER_NAME: kibana-dev
+      ELASTICSEARCH_URL: http://es-dev
+
 networks:
   default:
     external:
