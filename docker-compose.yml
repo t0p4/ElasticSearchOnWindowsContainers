@@ -5,7 +5,6 @@ services:
   elasticsearch:
     image: tonyhernandezatms/elasticsearch:openjdk8-nanoserver-sac2016-ES_5.5.3
     build: ./ElasticSearch/nanoserver
-    hostname: es-dev
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -17,14 +16,13 @@ services:
   kibana:
     image: tonyhernandezatms/kibana:windowsservercore-ltsc2016-ES_5.5.3
     build: ./Kibana/windowsservercore
-    hostname: kibana
     links:
       - elasticsearch
     ports:
       - "5601:5601"
     environment:
-      SERVER_NAME: kibana-dev
-      ELASTICSEARCH_URL: http://es-dev
+      SERVER_NAME: ${hostname}
+      ELASTICSEARCH_URL: http://elasticsearch
 
 networks:
   default:
