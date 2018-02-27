@@ -22,7 +22,7 @@ services:
       - "5601:5601"
     environment:
       SERVER_NAME: ${hostname}
-      ELASTICSEARCH_URL: http://elasticsearch
+      ELASTICSEARCH_URL: http://elasticsearch:9200
 
 networks:
   default:
