@@ -11,7 +11,7 @@ COPY VCForPython27.msi C:\\TEMP\\VSForPython27.msi
 RUN C:\\TEMP\\VSForPython27.msi
 
 # Install ElastAlert
-RUN pip install elastalert
+RUN pip install elastalert==0.1.29
 
 # Volume and drive mount
 # Mount your custom config and rules to these mount points

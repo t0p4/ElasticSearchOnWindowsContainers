@@ -24,6 +24,14 @@ services:
       SERVER_NAME: ${hostname}
       ELASTICSEARCH_URL: http://elasticsearch:9200
 
+  elastalert:
+    image: tonyhernandezatms/elastalert:0.1.29_python-2.7.14_windowsservercore-ltsc2016
+    build: ./ElastAlert/windowsservercore
+    links:
+      - elasticsearch
+    environment:
+      ELASTICSEARCH_HOST: elasticsearch
+      
 networks:
   default:
     external:
