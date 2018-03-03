@@ -1,6 +1,6 @@
 function AddToKibanaConfig{
     param([string] $key, [string] $value)
-    
+
     $configPath = 'C:\kibana\config\kibana.yml'
 
     $regexEscapedKey = $key.replace(".","\.");
@@ -112,7 +112,7 @@ $kibana_vars=@(
 )
 
 
-for ($kibana_var in $kibana_vars) {
+foreach ($kibana_var in $kibana_vars) {
     # 'elasticsearch.url' -> 'ELASTICSEARCH_URL'
     $varName = $kibana_var.replace(".","_")
 
