@@ -1,14 +1,5 @@
 # Must use Python 2 for ElastAlert: https://github.com/Yelp/elastalert/issues/1425
-FROM python:2.7.14-windowsservercore-ltsc2016
-
-# Flip back to cmd from powershell
-SHELL ["cmd", "/S", "/C"]
-
-# Copy dependency. Need to find URL for this.
-COPY VCForPython27.msi C:\\TEMP\\VSForPython27.msi
-
-# Install dependency.
-RUN C:\\TEMP\\VSForPython27.msi
+FROM tonyhernandezatms/python-vcforpython:python-2.7.14_windowsservercore-ltsc2016
 
 # Install ElastAlert
 RUN pip install elastalert==0.1.29
@@ -28,7 +19,5 @@ RUN Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manag
 COPY config-example c:\\ElastAlert\\config-example
 COPY rules-example c:\\ElastAlert\\rules-example
 COPY init.ps1 C:\\ElastAlert\\init.ps1
-
-ENV PYTHONIOENCODING="UTF-8"
 
 CMD C:\\ElastAlert\\init.ps1
