@@ -32,7 +32,7 @@ RUN Invoke-WebRequest $('https://nodejs.org/dist/v{0}/node-v{0}-win-x64.zip' -f 
     Expand-Archive node.zip -DestinationPath C:\ ; `
     Rename-Item -Path $('C:\node-v{0}-win-x64' -f $env:NODE_VERSION) -NewName 'C:\nodejs'
 
-RUN Invoke-WebRequest $('https://github.com/bitsensor/elastalert/archive/0.0.9.zip' -OutFile 'elastalert.zip' -UseBasicParsing ; `
+RUN Invoke-WebRequest 'https://github.com/bitsensor/elastalert/archive/0.0.9.zip' -OutFile 'elastalert.zip' -UseBasicParsing ; `
     Expand-Archive elastalert.zip - DestinationPath C:\ ;
 
 WORKDIR C:\elastalert-0.0.9
