@@ -31,6 +31,7 @@ CMD ".\bin\elasticsearch.bat"
 WORKDIR $ES_HOME
 COPY --from=downloader C:\elasticsearch\ .
 COPY config ./config
+copy sample-data/ ./sample
 
 HEALTHCHECK --interval=5s `
  CMD powershell -command `
