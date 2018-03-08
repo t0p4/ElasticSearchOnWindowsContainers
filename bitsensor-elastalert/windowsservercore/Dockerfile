@@ -8,7 +8,7 @@ ENV GPG_VERSION 2.3.4
 RUN Invoke-WebRequest $('https://files.gpg4win.org/gpg4win-vanilla-{0}.exe' -f $env:GPG_VERSION) -OutFile 'gpg4win.exe' -UseBasicParsing ; `
     Start-Process .\gpg4win.exe -ArgumentList '/S' -NoNewWindow -Wait
 
-RUN @( \
+RUN @( `
     '94AE36675C464D64BAFA68DD7434390BDBE9B9C5', `
     'FD3A5288F042B6850C66B31F09FE44734EB7990E', `
     '71DCFD284A79C3B38668286BC97EC7A07EDE3FC1', `
