@@ -53,7 +53,7 @@ ENV KIBANA_VERSION="5.5.3" `
     NPM_CONFIG_LOGLEVEL="info"
 
 COPY --from=download /nodejs /nodejs
-copy --from=download /elastalert /elastalert
+copy --from=download /elastalert-0.0.9 /elastalert.0.0.9
 RUN $env:PATH = 'C:\nodejs;{0}' -f $env:PATH ; `
     [Environment]::SetEnvironmentVariable('PATH', $env:PATH, [EnvironmentVariableTarget]::Machine)
 
