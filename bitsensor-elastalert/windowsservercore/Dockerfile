@@ -64,7 +64,7 @@ RUN npm install --quiet ; `
 
 WORKDIR C:\kibana
 COPY init.ps1 .
-COPY --from=downloader C:\kibana\ .
+COPY --from=download C:\kibana\ .
 
 RUN .\bin\kibana-plugin.bat install https://git.bitsensor.io/front-end/elastalert-kibana-plugin/builds/artifacts/kibana5/raw/artifact/elastalert-5.5.3-latest.zip?job=build
 
