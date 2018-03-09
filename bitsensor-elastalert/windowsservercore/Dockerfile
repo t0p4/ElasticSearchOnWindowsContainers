@@ -50,7 +50,7 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
 ENV KIBANA_VERSION="5.5.3" `
     KIBANA_HOME="C:\kibana" `
-    NPM_CONFIG_LOGLEVEL info
+    NPM_CONFIG_LOGLEVEL="info"
 
 COPY --from=download /nodejs /nodejs
 copy --from=download /elastalert /elastalert
