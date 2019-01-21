@@ -1,4 +1,4 @@
-FROM microsoft/windowsservercore:1709 AS downloader
+FROM mcr.microsoft.com/windows/servercore:1809 AS downloader
 
 # $ProgressPreference: https://github.com/PowerShell/PowerShell/issues/2138#issuecomment-251261324
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
@@ -11,10 +11,10 @@ RUN $newPath = ('{0}\bin;{1}' -f $env:JAVA_HOME, $env:PATH); \
 	setx /M PATH $newPath;
 
 # https://github.com/ojdkbuild/ojdkbuild/releases
-ENV JAVA_VERSION 8u161
-ENV JAVA_OJDKBUILD_VERSION 1.8.0.161-1
-ENV JAVA_OJDKBUILD_ZIP java-1.8.0-openjdk-1.8.0.161-1.b14.ojdkbuild.windows.x86_64.zip
-ENV JAVA_OJDKBUILD_SHA256 7fcd9909173ed19f4ae6c0bba8b32b1e6bece2d49eb9d87271828be8121fc31b
+ENV JAVA_VERSION 8u191
+ENV JAVA_OJDKBUILD_VERSION 1.8.0.191-1 
+ENV JAVA_OJDKBUILD_ZIP java-1.8.0-openjdk-1.8.0.191-1.b12.ojdkbuild.windows.x86_64.zip
+ENV JAVA_OJDKBUILD_SHA256 d52167198912e239bba19e059870c5742558096ad7b82fe73d51461361b149bd
 
 RUN $url = ('https://github.com/ojdkbuild/ojdkbuild/releases/download/{0}/{1}' -f $env:JAVA_OJDKBUILD_VERSION, $env:JAVA_OJDKBUILD_ZIP); \
 	Write-Host ('Downloading {0} ...' -f $url); \
@@ -43,10 +43,10 @@ RUN $url = ('https://github.com/ojdkbuild/ojdkbuild/releases/download/{0}/{1}' -
 	\
 	Write-Host 'Complete.';
 
-FROM microsoft/powershell:6.0.1-nanoserver-1709
+FROM mcr.microsoft.com/powershell:nanoserver-1809
 ENV JAVA_HOME C:\\ojdkbuild
-ENV JAVA_VERSION 8u161
-ENV JAVA_OJDKBUILD_VERSION 1.8.0.161-1
+ENV JAVA_VERSION 8u191
+ENV JAVA_OJDKBUILD_VERSION 1.8.0.191-1
 
 COPY --from=downloader C:\\ojdkbuild\\ ${JAVA_HOME}
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
